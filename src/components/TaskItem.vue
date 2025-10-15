@@ -9,10 +9,15 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['task-deleted', 'task-updated'])
+const emit = defineEmits(['task-deleted', 'task-updated', 'show-details'])
 const isEditing = ref(false)
 const editableTitle = ref(props.task.title)
 const editableDescription = ref(props.task.description)
+const editableStatus = ref(props.task.status)
+
+const showDetails = () => {
+  emit('show-details', props.task)
+}
 
 const deleteTask = () => {
   emit('task-deleted', props.task.id)
@@ -26,6 +31,7 @@ const cancelEdit = () => {
   isEditing.value = false
   editableTitle.value = props.task.title
   editableDescription.value = props.task.description
+  editableStatus.value = props.task.status
 }
 
 const saveTask = async () => {
@@ -37,6 +43,7 @@ const saveTask = async () => {
     const response = await apiClient.put(`/tasks/${props.task.id}`, {
       title: editableTitle.value,
       description: editableDescription.value,
+      status: editableStatus.value,
     })
 
     emit('task-updated', response.data)
@@ -50,27 +57,36 @@ const saveTask = async () => {
 
 <template>
   <li>
-    <div v-if="!isEditing" class="view-mode">
-      <span>
-        <strong>{{ task.title }}</strong> - ({{ task.status }})
+    <template v-if="!isEditing">
+      <div
+        class="task-info"
+        @click="showDetails"
+        style="cursor: pointer"
+        title="Clique para ver os detalhes"
+      >
+        <strong>{{ task.title }}</strong> - <span>({{ task.status }})</span>
         <p v-if="task.description">{{ task.description }}</p>
-      </span>
+      </div>
       <div class="actions">
         <button @click="enterEditMode" class="edit-btn">Editar</button>
         <button @click="deleteTask" class="delete-btn">Apagar</button>
       </div>
-    </div>
+    </template>
 
-    <div v-else class="edit-mode">
-      <form @submit.prevent="saveTask">
+    <template v-else>
+      <div class="edit-form">
         <input type="text" v-model="editableTitle" required />
         <textarea v-model="editableDescription"></textarea>
-        <div class="actions">
-          <button type="submit" class="save-btn">Salvar</button>
-          <button type="button" @click="cancelEdit" class="cancel-btn">Cancelar</button>
-        </div>
-      </form>
-    </div>
+        <select v-model="editableStatus">
+          <option value="pendente">Pendente</option>
+          <option value="concluída">Concluída</option>
+        </select>
+      </div>
+      <div class="actions">
+        <button @click="saveTask" class="save-btn">Salvar</button>
+        <button type="button" @click="cancelEdit" class="cancel-btn">Cancelar</button>
+      </div>
+    </template>
   </li>
 </template>
 

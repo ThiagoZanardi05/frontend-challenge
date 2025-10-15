@@ -3,8 +3,10 @@ import { ref, onMounted } from 'vue'
 import apiClient from '@/services/api'
 import CreateTaskForm from '@/components/CreateTaskForm.vue'
 import TaskItem from '@/components/TaskItem.vue'
+import TaskDetailModal from '@/components/TaskDetailModal.vue'
 
 const tasks = ref([])
+const selectedTask = ref(null)
 
 const fetchTasks = async () => {
   try {
@@ -39,6 +41,14 @@ const handleTaskDeleted = async (taskId) => {
   }
 }
 
+const showTaskDetails = (task) => {
+  selectedTask.value = task
+}
+
+const closeTaskDetails = () => {
+  selectedTask.value = null
+}
+
 onMounted(fetchTasks)
 </script>
 
@@ -54,7 +64,9 @@ onMounted(fetchTasks)
         :task="task"
         @task-deleted="handleTaskDeleted"
         @task-updated="handleTaskUpdated"
+        @show-details="showTaskDetails"
       />
     </ul>
   </main>
+  <TaskDetailModal v-if="selectedTask" :task="selectedTask" @close="closeTaskDetails" />
 </template>
