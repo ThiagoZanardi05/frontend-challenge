@@ -19,6 +19,15 @@ const handleTaskCreated = (newTask) => {
   tasks.value.push(newTask) // Adiciona a nova tarefa diretamente na lista
 }
 
+const handleTaskUpdated = (updatedTask) => {
+  // Encontra o índice da tarefa antiga no array
+  const index = tasks.value.findIndex((task) => task.id === updatedTask.id)
+  if (index !== -1) {
+    // Substitui a tarefa antiga pela nova
+    tasks.value[index] = updatedTask
+  }
+}
+
 const handleTaskDeleted = async (taskId) => {
   try {
     await apiClient.delete(`/tasks/${taskId}`)
@@ -44,6 +53,7 @@ onMounted(fetchTasks)
         :key="task.id"
         :task="task"
         @task-deleted="handleTaskDeleted"
+        @task-updated="handleTaskUpdated"
       />
     </ul>
   </main>
