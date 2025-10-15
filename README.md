@@ -1,44 +1,80 @@
-# frontend-challenge
+# Front-End da Lista de Tarefas (To-Do List) - Desafio de Programação
 
-This template should help get you started developing with Vue 3 in Vite.
+Esta é a Single Page Application (SPA) desenvolvida como front-end para o desafio de programação. A aplicação foi construída com **Vue.js** e interage com a [API em Laravel](https://github.com/ThiagoZanardi05/desafio-raizato-api.git) para fornecer uma experiência de usuário reativa e moderna para o gerenciamento de tarefas.
 
-## Recommended IDE Setup
+## Sobre o Projeto
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+O objetivo deste projeto é consumir a API de tarefas, permitindo que o usuário visualize, crie, edite, apague e veja os detalhes das suas tarefas em uma interface limpa e intuitiva. A aplicação foi estruturada com foco na componentização e na reatividade, que são pontos fortes do Vue.js.
 
-## Recommended Browser Setup
+## Tecnologias e Conceitos Utilizados
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) 
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+- **Framework:** Vue.js 3 (com a Composition API e `<script setup>`)
+- **Linguagem:** JavaScript
+- **Roteamento:** Vue Router
+- **Cliente HTTP:** Axios para a comunicação com a API.
+- **Ferramentas de Build:** Vite
+- **Qualidade de Código:** ESLint e Prettier
 
-## Customize configuration
+### Estrutura de Componentes
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+A aplicação foi dividida nos seguintes componentes para garantir a separação de responsabilidades e a reutilização:
+- `HomeView.vue`: A página principal que gerencia o estado da lista de tarefas.
+- `TaskItem.vue`: Componente que representa uma única tarefa na lista, contendo a lógica para edição, exclusão e exibição.
+- `CreateTaskForm.vue`: Formulário para a criação de novas tarefas.
+- `TaskDetailModal.vue`: Modal para a exibição dos detalhes completos de uma tarefa.
 
-## Project Setup
+## Demonstração Visual
 
-```sh
-npm install
-```
+Abaixo estão algumas telas que demonstram as principais funcionalidades da aplicação.
 
-### Compile and Hot-Reload for Development
+### 1. Visualização da Lista
+A tela principal exibe todas as tarefas. Tarefas concluídas são visualmente diferenciadas com uma borda verde e texto riscado, oferecendo uma clara indicação de status.
 
-```sh
-npm run dev
-```
+![Visualização da Lista de Tarefas](https://i.imgur.com/SUh3k3g.png)
 
-### Compile and Minify for Production
+### 2. Criação de Tarefa
+Um formulário limpo e intuitivo permite a adição de novas tarefas à lista.
 
-```sh
-npm run build
-```
+![Formulário de Criação de Tarefa](https://i.imgur.com/eBvQzN9.png)
 
-### Lint with [ESLint](https://eslint.org/)
+### 3. Modo de Edição
+Ao clicar em "Editar", a tarefa entra em modo de edição, permitindo a alteração de título, descrição e status diretamente na lista.
 
-```sh
-npm run lint
-```
+![Modo de Edição de Tarefa](https://i.imgur.com/S6yY5Ea.png)
+
+### 4. Detalhes da Tarefa
+Clicar em uma tarefa abre um modal com todos os seus detalhes, incluindo as datas de criação e última alteração.
+
+![Modal de Detalhes da Tarefa](https://i.imgur.com/uG2Z2aO.png)
+
+## Como Executar o Projeto Localmente
+
+Siga os passos abaixo para configurar e rodar o front-end em seu ambiente de desenvolvimento.
+
+### Pré-requisitos
+
+- Node.js (versão 18 ou superior) e npm.
+- A **API em Laravel** deve estar rodando localmente.
+
+### Passos para Instalação
+
+1.  **Clone o repositório:**
+    ```bash
+    git clone https://github.com/ThiagoZanardi05/frontend-challenge.git
+    cd seu-repositorio-frontend
+    ```
+
+2.  **Instale as dependências do npm:**
+    ```bash
+    npm install
+    ```
+
+3.  **Inicie o servidor de desenvolvimento:**
+    ```bash
+    npm run dev
+    ```
+
+A aplicação estará disponível em `http://localhost:5173` (ou em outra porta, caso a 5173 esteja em uso).
+
+---
+*Este projeto foi desenvolvido como parte de um desafio de programação.*
