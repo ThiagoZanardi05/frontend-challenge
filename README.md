@@ -30,22 +30,22 @@ Abaixo estão algumas telas que demonstram as principais funcionalidades da apli
 ### 1. Visualização da Lista
 A tela principal exibe todas as tarefas. Tarefas concluídas são visualmente diferenciadas com uma borda verde e texto riscado, oferecendo uma clara indicação de status.
 
-![Visualização da Lista de Tarefas](https://i.imgur.com/SUh3k3g.png)
+![Visualização da Lista de Tarefas](./screenshots/01-lista-de-tarefas.png)
 
 ### 2. Criação de Tarefa
 Um formulário limpo e intuitivo permite a adição de novas tarefas à lista.
 
-![Formulário de Criação de Tarefa](https://i.imgur.com/eBvQzN9.png)
+![Formulário de Criação de Tarefa](./screenshots/02-formulario-criacao.png)
 
 ### 3. Modo de Edição
 Ao clicar em "Editar", a tarefa entra em modo de edição, permitindo a alteração de título, descrição e status diretamente na lista.
 
-![Modo de Edição de Tarefa](https://i.imgur.com/S6yY5Ea.png)
+![Modo de Edição de Tarefa](./screenshots/03-modo-edicao.png)
 
 ### 4. Detalhes da Tarefa
 Clicar em uma tarefa abre um modal com todos os seus detalhes, incluindo as datas de criação e última alteração.
 
-![Modal de Detalhes da Tarefa](https://i.imgur.com/uG2Z2aO.png)
+![Modal de Detalhes da Tarefa](./screenshots/04-modal-detalhes.png)
 
 ## Como Executar o Projeto Localmente
 
