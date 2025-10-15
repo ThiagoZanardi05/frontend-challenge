@@ -56,10 +56,10 @@ const saveTask = async () => {
 </script>
 
 <template>
-  <li>
+  <li :class="{ 'is-completed': task.status === 'concluída' }">
     <template v-if="!isEditing">
       <div
-        class="task-info"
+        class="task-content"
         @click="showDetails"
         style="cursor: pointer"
         title="Clique para ver os detalhes"
@@ -74,7 +74,7 @@ const saveTask = async () => {
     </template>
 
     <template v-else>
-      <div class="edit-form">
+      <div class="form-inputs">
         <input type="text" v-model="editableTitle" required />
         <textarea v-model="editableDescription"></textarea>
         <select v-model="editableStatus">
@@ -92,7 +92,10 @@ const saveTask = async () => {
 
 <style scoped>
 li {
-  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 15px;
   border-bottom: 1px solid #eee;
 }
 .view-mode,
@@ -114,6 +117,12 @@ p {
   border-radius: 4px;
   cursor: pointer;
 }
+
+.actions {
+  flex-shrink: 0;
+  padding-left: 20px;
+}
+
 .edit-btn {
   background-color: #3490dc;
   color: white;
@@ -134,5 +143,18 @@ p {
 .edit-mode input,
 .edit-mode textarea {
   width: 70%;
+}
+
+.is-completed {
+  border-left: 5px solid #42b983;
+  background-color: #f8f9fa;
+}
+.is-completed .task-content {
+  opacity: 0.6;
+}
+.form-inputs {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 </style>

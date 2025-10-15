@@ -37,23 +37,46 @@ const formatDate = (dateString) => {
 <style scoped>
 .modal-overlay {
   position: fixed;
+  z-index: 100;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .modal-content {
   background-color: white;
-  padding: 20px;
+  padding: 30px;
   border-radius: 8px;
   width: 500px;
   max-width: 90%;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
-button {
+.modal-content h3 {
+  margin-top: 0;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+.modal-content h4 {
+  color: #3490dc;
+}
+.modal-content p {
+  line-height: 1.6;
+}
+.modal-content button {
+  display: block;
+  margin-left: auto;
   margin-top: 20px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #666;
+  color: white;
+  border-radius: 4px;
+}
+.modal-content button:hover {
+  background-color: #555;
 }
 </style>

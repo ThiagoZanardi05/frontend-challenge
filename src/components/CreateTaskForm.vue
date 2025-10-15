@@ -31,49 +31,55 @@ const handleSubmit = async () => {
 </script>
 
 <template>
-  <form @submit.prevent="handleSubmit">
-    <h3>Adicionar Nova Tarefa</h3>
-    <div>
-      <label for="title">Título:</label>
-      <input type="text" id="title" v-model="newTaskTitle" required />
-    </div>
-    <div>
-      <label for="description">Descrição:</label>
-      <textarea id="description" v-model="newTaskDescription"></textarea>
-    </div>
-    <button type="submit">Adicionar Tarefa</button>
-  </form>
+  <div class="create-task-form">
+    <form @submit.prevent="handleSubmit">
+      <h3>Adicionar Nova Tarefa</h3>
+      <div>
+        <label for="title">Título:</label>
+        <input type="text" id="title" v-model="newTaskTitle" required />
+      </div>
+      <div>
+        <label for="description">Descrição:</label>
+        <textarea id="description" v-model="newTaskDescription"></textarea>
+      </div>
+      <button type="submit">Adicionar Tarefa</button>
+    </form>
+  </div>
 </template>
 
 <style scoped>
-form {
-  margin-top: 20px;
+.create-task-form {
+  margin-top: 30px;
+  margin-bottom: 30px;
   padding: 20px;
-  border: 1px solid #ccc;
+  background-color: #fdfdfd;
+  border: 1px solid #eaeaea;
   border-radius: 8px;
 }
-div {
-  margin-bottom: 10px;
+
+.form-group {
+  margin-bottom: 15px;
 }
+
 label {
   display: block;
   margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
 }
-input,
-textarea {
-  width: 100%;
-  padding: 8px;
-  box-sizing: border-box;
-}
+
 button {
-  padding: 10px 15px;
-  background-color: #42b983;
+  width: 100%;
+  padding: 12px 15px;
+  background-color: #3490dc;
   color: white;
   border: none;
   border-radius: 4px;
+  font-size: 16px;
   cursor: pointer;
 }
+
 button:hover {
-  background-color: #369b70;
+  background-color: #2779bd;
 }
 </style>

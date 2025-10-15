@@ -53,20 +53,18 @@ onMounted(fetchTasks)
 </script>
 
 <template>
-  <main>
-    <h1>Minha Lista de Tarefas</h1>
-    <CreateTaskForm @task-created="handleTaskCreated" />
+  <h1>Minha Lista de Tarefas</h1>
+  <CreateTaskForm @task-created="handleTaskCreated" />
 
-    <ul>
-      <TaskItem
-        v-for="task in tasks"
-        :key="task.id"
-        :task="task"
-        @task-deleted="handleTaskDeleted"
-        @task-updated="handleTaskUpdated"
-        @show-details="showTaskDetails"
-      />
-    </ul>
-  </main>
+  <ul>
+    <TaskItem
+      v-for="task in tasks"
+      :key="task.id"
+      :task="task"
+      @task-deleted="handleTaskDeleted"
+      @task-updated="handleTaskUpdated"
+      @show-details="showTaskDetails"
+    />
+  </ul>
   <TaskDetailModal v-if="selectedTask" :task="selectedTask" @close="closeTaskDetails" />
 </template>
