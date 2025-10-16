@@ -1,6 +1,13 @@
 # Front-End da Lista de Tarefas (To-Do List) - Desafio de Programação
 
+![Vue.js](https://img.shields.io/badge/Vue.js-3-green)
+![Vite](https://img.shields.io/badge/Vite-5-purple)
+![ESLint](https://img.shields.io/badge/ESLint-8-blue)
+![Prettier](https://img.shields.io/badge/Prettier-3-ff69b4)
+
 Esta é a Single Page Application (SPA) desenvolvida como front-end para o desafio de programação. A aplicação foi construída com **Vue.js** e interage com a [API em Laravel](https://github.com/ThiagoZanardi05/desafio-raizato-api.git) para fornecer uma experiência de usuário reativa e moderna para o gerenciamento de tarefas.
+
+![Visualização da Lista de Tarefas](./screenshots/01-lista-de-tarefas.png)
 
 ## Sobre o Projeto
 
@@ -28,7 +35,7 @@ A aplicação foi dividida nos seguintes componentes para garantir a separação
 Abaixo estão algumas telas que demonstram as principais funcionalidades da aplicação.
 
 ### 1. Visualização da Lista
-A tela principal exibe todas as tarefas. Tarefas concluídas são visualmente diferenciadas com uma borda verde e texto riscado, oferecendo uma clara indicação de status.
+A tela principal exibe todas as tarefas. Tarefas concluídas são visualmente diferenciadas com uma borda verde, oferecendo uma clara indicação de status.
 
 ![Visualização da Lista de Tarefas](./screenshots/01-lista-de-tarefas.png)
 
@@ -60,8 +67,8 @@ Siga os passos abaixo para configurar e rodar o front-end em seu ambiente de des
 
 1.  **Clone o repositório:**
     ```bash
-    git clone https://github.com/ThiagoZanardi05/frontend-challenge.git
-    cd seu-repositorio-frontend
+    git clone [https://github.com/ThiagoZanardi05/frontend-challenge.git](https://github.com/ThiagoZanardi05/frontend-challenge.git)
+    cd frontend-challenge
     ```
 
 2.  **Instale as dependências do npm:**
