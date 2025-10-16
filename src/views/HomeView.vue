@@ -1,40 +1,56 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, reactive, watch } from 'vue'
 import apiClient from '@/services/api'
 import CreateTaskForm from '@/components/CreateTaskForm.vue'
 import TaskItem from '@/components/TaskItem.vue'
 import TaskDetailModal from '@/components/TaskDetailModal.vue'
 
+const params = reactive({
+  page: 1,
+  per_page: 5,
+  sort_by: 'created_at',
+  sort_dir: 'desc',
+  status: '', // '' para todos, 'pendente' ou 'concluída'
+})
+
 const tasks = ref([])
+const pagination = ref(null)
 const selectedTask = ref(null)
 
 const fetchTasks = async () => {
   try {
-    const response = await apiClient.get('/tasks')
-    tasks.value = response.data
+    const activeParams = { ...params }
+
+    if (!activeParams.status) {
+      delete activeParams.status
+    }
+
+    const response = await apiClient.get('/tasks', { params: activeParams })
+
+    tasks.value = response.data.data
+    pagination.value = response.data.meta
   } catch (error) {
     console.error('Erro ao buscar as tarefas:', error)
   }
 }
 
-const handleTaskCreated = (newTask) => {
-  tasks.value.push(newTask) // Adiciona a nova tarefa diretamente na lista
+watch(params, fetchTasks, { deep: true })
+
+const handleTaskCreated = () => {
+  fetchTasks()
 }
 
 const handleTaskUpdated = (updatedTask) => {
-  // Encontra o índice da tarefa antiga no array
-  const index = tasks.value.findIndex((task) => task.id === updatedTask.id)
+  const index = tasks.value.findIndex((task) => task.id === updatedTask.data.id)
   if (index !== -1) {
-    // Substitui a tarefa antiga pela nova
-    tasks.value[index] = updatedTask
+    tasks.value[index] = updatedTask.data
   }
 }
 
 const handleTaskDeleted = async (taskId) => {
   try {
     await apiClient.delete(`/tasks/${taskId}`)
-    // Remove a tarefa da lista local sem precisar buscar tudo de novo
-    tasks.value = tasks.value.filter((task) => task.id !== taskId)
+    fetchTasks()
   } catch (error) {
     console.error('Erro ao apagar a tarefa:', error)
     alert('Não foi possível apagar a tarefa.')
@@ -49,12 +65,35 @@ const closeTaskDetails = () => {
   selectedTask.value = null
 }
 
+const goToPage = (page) => {
+  if (page >= 1 && page <= pagination.value.last_page) {
+    params.page = page
+  }
+}
+
 onMounted(fetchTasks)
 </script>
 
 <template>
   <h1>Minha Lista de Tarefas</h1>
   <CreateTaskForm @task-created="handleTaskCreated" />
+
+  <div class="filters">
+    <select v-model="params.status">
+      <option value="">Todos os Status</option>
+      <option value="pendente">Pendente</option>
+      <option value="concluída">Concluída</option>
+    </select>
+    <select v-model="params.sort_by">
+      <option value="created_at">Data de Criação</option>
+      <option value="title">Título</option>
+      <option value="status">Status</option>
+    </select>
+    <select v-model="params.sort_dir">
+      <option value="desc">Descendente</option>
+      <option value="asc">Ascendente</option>
+    </select>
+  </div>
 
   <ul>
     <TaskItem
@@ -66,5 +105,58 @@ onMounted(fetchTasks)
       @show-details="showTaskDetails"
     />
   </ul>
+
+  <div v-if="pagination" class="pagination-controls">
+    <button @click="goToPage(pagination.current_page - 1)" :disabled="pagination.current_page <= 1">
+      Anterior
+    </button>
+    <span>Página {{ pagination.current_page }} de {{ pagination.last_page }}</span>
+    <button
+      @click="goToPage(pagination.current_page + 1)"
+      :disabled="pagination.current_page >= pagination.last_page"
+    >
+      Próxima
+    </button>
+  </div>
+
   <TaskDetailModal v-if="selectedTask" :task="selectedTask" @close="closeTaskDetails" />
 </template>
+
+<style scoped>
+.filters {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  background: #fdfdfd;
+  padding: 15px;
+  border: 1px solid #eaeaea;
+  border-radius: 8px;
+}
+
+.filters select {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  gap: 15px;
+}
+
+.pagination-controls button {
+  padding: 8px 15px;
+  background-color: #3490dc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+}
+
+.pagination-controls button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+</style>
