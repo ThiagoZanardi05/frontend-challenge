@@ -14,10 +14,14 @@ const params = reactive({
 })
 
 const tasks = ref([])
+const isLoading = ref(false)
+const apiError = ref(null)
 const pagination = ref(null)
 const selectedTask = ref(null)
 
 const fetchTasks = async () => {
+  isLoading.value = true
+  apiError.value = null
   try {
     const activeParams = { ...params }
 
@@ -30,7 +34,10 @@ const fetchTasks = async () => {
     tasks.value = response.data.data
     pagination.value = response.data.meta
   } catch (error) {
+    apiError.value = 'Não foi possível carregar as tarefas. Tente novamente mais tarde.'
     console.error('Erro ao buscar as tarefas:', error)
+  } finally {
+    isLoading.value = false
   }
 }
 
@@ -94,6 +101,10 @@ onMounted(fetchTasks)
       <option value="asc">Ascendente</option>
     </select>
   </div>
+
+  <div v-if="isLoading" class="loading-state">A carregar tarefas...</div>
+  <div v-else-if="tasks.length === 0" class="empty-state">Nenhuma tarefa encontrada.</div>
+  <div v-if="apiError" class="error-state">{{ apiError }}</div>
 
   <ul>
     <TaskItem
